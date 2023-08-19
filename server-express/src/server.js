@@ -13,24 +13,18 @@ app.use(express.urlencoded({extended: true}));
 // Connect to Database
 const pool = require('./database/connect');
 
-// Use Routes
+// Use Routed Endpoints
 const itemRoutes = require('./routes/itemRoutes');
 app.use('/api/items', itemRoutes(pool));
 
-
-// Simple endpoint - no routes module used
+// Simple example endpoint - no routes module used
 app.get("/api/status", (req, res) => {
   res.json({version: "1.01"});
-});
-
-app.get("/", (req, res) => {
-  res.status(404);
 });
 
 app.use(function(req, res) {
   res.status(404);
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`);
