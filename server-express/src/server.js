@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Serve static files from ../public (needed to serve React App)
-const public = path.join(process.cwd(), '..', 'public');
+const public = path.join(process.cwd(), '..', '_public');
 app.use(express.static(public));
 app.use(express.urlencoded({extended: true}));
 
@@ -21,6 +21,10 @@ app.use('/api/items', itemRoutes(pool));
 // Simple endpoint - no routes module used
 app.get("/api/status", (req, res) => {
   res.json({version: "1.01"});
+});
+
+app.get("/", (req, res) => {
+  res.status(404);
 });
 
 app.use(function(req, res) {
