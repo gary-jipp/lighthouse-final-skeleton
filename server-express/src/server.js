@@ -12,6 +12,7 @@ app.use(express.urlencoded({extended: true}));
 
 // Connect to Database
 const pool = require('./database/connect');
+pool.connect().catch(err => console.log(err.message));
 
 // Use Routed Endpoints
 const itemRoutes = require('./routes/itemRoutes');
@@ -19,7 +20,15 @@ app.use('/api/items', itemRoutes(pool));
 
 // Simple example endpoint - no routes module used
 app.get("/api/status", (req, res) => {
-  res.json({version: "1.01", name: "Demo App"});
+  const status = {version: "1.02", name: "Demo App"};
+  pool.connect()
+    .then(() => {
+      res.json({...status, database: "Active"});
+    })
+    .catch(err => {
+      console.log(err.message);
+      res.json({...status, database: "Not Active"});
+    });
 });
 
 app.use(function(req, res) {

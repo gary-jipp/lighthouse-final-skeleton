@@ -11,6 +11,7 @@ export default function Status() {
         <>
           <div>Name: <code>{status.name}</code></div>
           <div>Version: <code>{status.version}</code></div>
+          <div>Database: <code>{status.database}</code></div>
         </>
       }
     </>
