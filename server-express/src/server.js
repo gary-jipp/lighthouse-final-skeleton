@@ -19,7 +19,7 @@ app.use('/api/items', itemRoutes(pool));
 
 // Simple example endpoint - no routes module used
 app.get("/api/status", (req, res) => {
-  res.json({version: "1.01"});
+  res.json({version: "1.01", name: "Demo App"});
 });
 
 app.use(function(req, res) {
