@@ -1,30 +1,21 @@
 import 'App.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import useAxios from 'hooks/useAxios';
+import {useEffect, useState} from 'react';
 
 export default function App() {
-  const [status, setStatus] = useState({});
-
-  useEffect(() => {
-    axios.get('/api/status')
-      .then((res) => {
-        setStatus(res.data);
-      })
-      .catch((err) => {
-        setStatus({ error: err.message });
-      });
-  }, []);
+  const [status, error] = useAxios('/api/status');
 
   return (
     <div className="App">
       <h1>React Express Demo</h1>
 
       <section>
-        {!status.error &&
-          <>API Version: <code>{status.version}</code></>}
 
-        {status.error &&
-          <>API Error: <code>{status.error}</code></>}
+        {!!error &&
+          <>Error: <code>{error}</code></>}
+        {!!status &&
+          <>Version: <code>{status.version}</code></>}
 
       </section>
     </div>
