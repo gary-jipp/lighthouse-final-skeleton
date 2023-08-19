@@ -3,7 +3,7 @@ const pool = new Pool({
   user: "labber",
   password: "labber",
   host: "localhost",
-  database: "pets",
+  database: "final",
 });
 
 module.exports = pool;
